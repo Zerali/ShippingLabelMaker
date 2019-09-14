@@ -1,38 +1,57 @@
-import React, { useState } from 'react';
+import React, { useReducer } from 'react';
 import PropTypes from 'prop-types';
-
 import Steps from '../steps/steps';
 
+const initialState = { step: 1 };
+
+function reducer(state, action) {
+  //console.log(action);
+
+  switch (action.type) {
+    case 'increment':
+      if(state.step > action.end) {
+        return {...state};
+      }
+
+      return { step: state.step + 1 }
+    case 'decrement':
+      if(state.step === 1) {
+        return {...state};
+      }
+
+      return { step: state.step - 1 }
+    default:
+      throw new Error('Somehow we incremented or decremented too much');
+  }
+}
+
 const Wizard = (props) => {
-  const [stepNum, setStepNum] = useState(1);
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   const stepsProps = {
-    onAction: (onAction) => {
-      console.log(onAction)
-
-      if(onAction.next < 1) {
-        // do nothing
-        return;
-      } else if (onAction.next > props.steps.length) {
-        // We have completed every step
-        props.onComplete();
-        return;
-      } else if (onAction.next > stepNum) {
-        setStepNum(stepNum + 1);
-      } else if (onAction.next < stepNum) {
-        setStepNum(stepNum - 1);
-      }
-    },
-    cur: stepNum,
+    onAction: (onAction) => dispatch(onAction),
     end: props.steps.length,
   };
+
+  //console.log(state);
+
+  let render;
+
+  if(state.step > props.steps.length) {
+    // Trigger props.onComplete()
+    render = <div>'Complete!'</div>;
+  } else {
+    render = (
+      <Steps {...stepsProps}>
+        {props.steps[state.step-1]()}
+      </Steps>
+    );
+  }
 
   return (
     <div>
       {props.header()}
-      <Steps {...stepsProps}>
-        {props.steps[stepNum-1]()}
-      </Steps>
+      {render}
     </div>
   );
 }

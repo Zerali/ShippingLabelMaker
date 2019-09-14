@@ -6,8 +6,8 @@ const Steps = (props) => {
   return (
     <div>
       {props.children}
-      <Button onClick={() => props.onAction({prev: props.cur, next: props.cur-1, end: props.end})}>Previous</Button>
-      <Button onClick={() => props.onAction({prev: props.cur, next: props.cur+1, end: props.end})}>Next</Button>
+      <Button onClick={() => props.onAction({ type: 'decrement', end: props.end})}>Previous</Button>
+      <Button onClick={() => props.onAction({ type: 'increment', end: props.end})}>Next</Button>
     </div>
   );
 }
