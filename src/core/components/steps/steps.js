@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Row, Col } from 'react-bootstrap';
+import { WizardContext } from '../../../features/shipping-label-maker/shipping-label-maker'
 
 const Steps = (props) => {
+  const value = useContext(WizardContext);
+
   return (
     <div>
-      {props.children}
+      {props.children(value)}
       <Row>
         <Col xs={{span: 4, offset: 4}}>
           <Row>
@@ -23,7 +26,6 @@ const Steps = (props) => {
 }
 
 Steps.propTypes = {
-  wizardContext: PropTypes.object.isRequired,
   onAction: PropTypes.func.isRequired
 };
 

@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import Steps from '../steps/steps';
 import { ProgressBar } from 'react-bootstrap';
 
-const initialState = { step: 1 };
+const initialState = { step: 0 };
 
-function reducer(state, action) {
+const reducer = (state, action) => {
   switch (action.type) {
     case 'increment':
       if(state.step > action.end) {
@@ -14,7 +14,7 @@ function reducer(state, action) {
 
       return { step: state.step + 1 }
     case 'decrement':
-      if(state.step === 1) {
+      if(state.step === 0) {
         return {...state};
       }
 
@@ -36,13 +36,13 @@ const Wizard = (props) => {
 
   let render;
 
-  if(state.step > props.steps.length) {
+  if(state.step === props.steps.length) {
     // Trigger props.onComplete()
     render = <div>'Complete!'</div>;
   } else {
     render = (
       <Steps {...stepsProps}>
-        {props.steps[state.step-1]()}
+        {props.steps[state.step]}
       </Steps>
     );
   }
@@ -59,7 +59,6 @@ const Wizard = (props) => {
 Wizard.propTypes = {
   header: PropTypes.func.isRequired,
   steps: PropTypes.array.isRequired,
-  wizardContext: PropTypes.object.isRequired,
   onComplete: PropTypes.func.isRequired
 };
 
