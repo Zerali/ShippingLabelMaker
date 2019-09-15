@@ -5,12 +5,13 @@ import GetReceiverAddress from '../../core/components/get-receiver-address/get-r
 import GetWeight from '../../core/components/get-weight/get-weight';
 import GetShippingOption from '../../core/components/get-shipping-option/get-shipping-option';
 import Confirm from '../../core/components/confirm/confirm';
+import { Row, Col } from 'react-bootstrap';
 
 const props = {
   header: () => { return (
-      <div>
+     <header className="App-header">
         <h1>Shipping Label Maker</h1>
-      </div>
+      </header>
     ) 
   },
   steps: [ GetSenderAddress, GetReceiverAddress, GetWeight, GetShippingOption, Confirm ],
@@ -20,12 +21,19 @@ const props = {
   }
 };
 
-export const ShippingLabelMaker = () => {
+const WizardContext = React.createContext();
 
+export const ShippingLabelMaker = () => {
   return (
-    <div>
-      <Wizard { ...props } />
-    </div>
+    <Row>
+      <Col sm={{span:10, offset: 1}}>
+        <WizardContext.Provider value={{ test: 'data' }} >
+          {/* <WizardContext.Consumer> */}
+            <Wizard { ...props } />
+          {/* </WizardContext.Consumer> */}
+        </WizardContext.Provider>
+      </Col>
+    </Row>
   );
 };
 

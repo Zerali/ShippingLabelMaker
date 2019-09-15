@@ -1,12 +1,11 @@
 import React, { useReducer } from 'react';
 import PropTypes from 'prop-types';
 import Steps from '../steps/steps';
+import { ProgressBar } from 'react-bootstrap';
 
 const initialState = { step: 1 };
 
 function reducer(state, action) {
-  //console.log(action);
-
   switch (action.type) {
     case 'increment':
       if(state.step > action.end) {
@@ -33,7 +32,7 @@ const Wizard = (props) => {
     end: props.steps.length,
   };
 
-  //console.log(state);
+  const progressNow = Math.ceil((state.step/props.steps.length)*100);
 
   let render;
 
@@ -51,6 +50,7 @@ const Wizard = (props) => {
   return (
     <div>
       {props.header()}
+      <ProgressBar variant="info" now={progressNow} style={{marginTop: 15, marginBottom: 15}}/>
       {render}
     </div>
   );
