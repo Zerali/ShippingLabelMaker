@@ -32,7 +32,16 @@ const initialShippingInfoState = {
     city: '',
     state: '',
     zip: ''
-  }
+  },
+  to: {
+    name: '',
+    street: '',
+    city: '',
+    state: '',
+    zip: ''
+  },
+  weight: 0,
+  shippingOption: 1
 }
 
 export const ShippingLabelMaker = () => {
@@ -42,6 +51,8 @@ export const ShippingLabelMaker = () => {
     shippingInfo: shippingInfo,
     updateShippingInfo: (newShippingInfo) => UpdateShippingInfo({...shippingInfo, ...newShippingInfo}),
   };
+
+  console.log(shippingInfo);
 
   return (
     <Row>
