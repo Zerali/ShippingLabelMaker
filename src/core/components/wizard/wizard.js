@@ -32,13 +32,12 @@ const Wizard = (props) => {
     end: props.steps.length,
   };
 
-  const progressNow = Math.ceil((state.step/props.steps.length)*100);
+  const progressNow = Math.ceil((state.step/(props.steps.length-1))*100);
 
   let render;
 
   if(state.step === props.steps.length) {
-    // Trigger props.onComplete()
-    render = <div>'Complete!'</div>;
+    props.onComplete();
   } else {
     render = (
       <Steps {...stepsProps}>

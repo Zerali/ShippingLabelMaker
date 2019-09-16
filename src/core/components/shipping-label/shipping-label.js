@@ -1,16 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import ShipperReceiverReadOnly from '../read-only/shipper-receiver-read-only';
 import WeightReadOnly from '../read-only/weight-read-only';
 import ShippingOptionReadOnly from '../read-only/shipping-option-read-only';
-import CostReadOnly from '../read-only/cost-read-only';
 
-const Confirm = (props) => {
+const ShippingLabel = (props) => {
   const shippingInfo = props.shippingInfo;
+
+  useEffect(() => {
+    window.print();
+  }, []);
 
   return (
     <div>
-      <label>Please confirm the order below:</label>
       <Row>
         <Col sm="6">
           <h3>Shipper</h3>
@@ -26,12 +28,10 @@ const Confirm = (props) => {
           <h3>Shipment Info</h3>
           <WeightReadOnly {...{weight: shippingInfo.weight}}/>
           <ShippingOptionReadOnly {...{shippingOption: shippingInfo.shippingOption}} />
-          <h3>Cost</h3>
-          <CostReadOnly {...shippingInfo}/>
         </Col>
       </Row>
     </div>
   );
 }
 
-export default Confirm;
+export default ShippingLabel;

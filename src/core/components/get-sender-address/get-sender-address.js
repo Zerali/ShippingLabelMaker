@@ -15,7 +15,7 @@ const GetSenderAddress = (props) => {
   return (
     <div>
       <label>Enter the shippers address:</label>
-      <Form>
+      <Form >
         <Form.Group as={Row} controlId="formName">
           <Form.Label column sm="1">
             Name:
