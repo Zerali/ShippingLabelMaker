@@ -27,11 +27,6 @@ const reducer = (state, action) => {
 const Wizard = (props) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const stepsProps = {
-    onAction: (onAction) => dispatch(onAction),
-    end: props.steps.length,
-  };
-
   const progressNow = Math.ceil((state.step/(props.steps.length-1))*100);
 
   let render;
@@ -39,9 +34,18 @@ const Wizard = (props) => {
   if(state.step === props.steps.length) {
     props.onComplete();
   } else {
+    // Don't set the render if we are completed
+    const step = props.steps[state.step];
+
+    const stepsProps = {
+      onAction: (onAction) => dispatch(onAction),
+      end: props.steps.length,
+      validate: step.validation
+    };
+
     render = (
       <Steps {...stepsProps}>
-        {props.steps[state.step]}
+        {step.component}
       </Steps>
     );
   }

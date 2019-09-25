@@ -34,4 +34,12 @@ const Confirm = (props) => {
   );
 }
 
+export const validateConfirm = (shippingInfo) => { 
+  let errors = [];
+
+  // no validation needed
+
+  return errors;
+} 
+
 export default Confirm;

@@ -24,4 +24,12 @@ const GetServiceOption = (props) => {
   );
 }
 
+export const validateGetServiceOption = (shippingInfo) => { 
+  let errors = [];
+
+  // no validation needed
+
+  return errors;
+} 
+
 export default GetServiceOption;

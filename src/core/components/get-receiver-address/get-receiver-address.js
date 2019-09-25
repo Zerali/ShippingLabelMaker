@@ -21,7 +21,7 @@ const GetReceiverAddress = (props) => {
             Name:
           </Form.Label>
           <Col sm="11">
-            <Form.Control value={formData.name} onChange={(e) => {
+            <Form.Control required value={formData.name} onChange={(e) => {
               onFormChange({name: e.target.value});
             }} />
           </Col>
@@ -31,7 +31,7 @@ const GetReceiverAddress = (props) => {
             Street:
           </Form.Label>
           <Col sm="11">
-            <Form.Control value={formData.street} onChange={(e) => {
+            <Form.Control required value={formData.street} onChange={(e) => {
               onFormChange({street: e.target.value});
             }} />
           </Col>
@@ -43,7 +43,7 @@ const GetReceiverAddress = (props) => {
                 City:
               </Form.Label>
               <Col sm={{span: 9, offset: 1}}>
-                <Form.Control value={formData.city} onChange={(e) => {
+                <Form.Control required value={formData.city} onChange={(e) => {
                   onFormChange({city: e.target.value});
                 }}/>
               </Col>
@@ -55,7 +55,7 @@ const GetReceiverAddress = (props) => {
                 State:
               </Form.Label>
               <Col sm={{span:9, offset: 1}}>
-                <Form.Control value={formData.state} onChange={(e) => {
+                <Form.Control required value={formData.state} onChange={(e) => {
                   onFormChange({state: e.target.value});
                 }}/>
               </Col>
@@ -67,7 +67,7 @@ const GetReceiverAddress = (props) => {
                 Zip:
               </Form.Label>
               <Col sm={{span:8, offset: 1}}>
-                <Form.Control value={formData.zip} onChange={(e) => {
+                <Form.Control required value={formData.zip} onChange={(e) => {
                   onFormChange({zip: e.target.value});
                 }}/>
               </Col>
@@ -78,5 +78,31 @@ const GetReceiverAddress = (props) => {
     </div>
   );
 }
+
+export const validateGetReceiverAddress = (shippingInfo) => {
+  let errors = [];
+
+  if(shippingInfo.to.name === '') {
+    errors.push('Name is required');
+  }
+
+  if(shippingInfo.to.street === '') {
+    errors.push('Street is required');
+  }
+
+  if(shippingInfo.to.city === '') {
+    errors.push('City is required');
+  }
+
+  if(shippingInfo.to.state === '') {
+    errors.push('State is required');
+  }
+
+  if(shippingInfo.to.zip === '') {
+    errors.push('Zip is required');
+  }
+
+  return errors;
+};
 
 export default GetReceiverAddress;

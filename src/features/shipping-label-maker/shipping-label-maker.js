@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import Wizard from '../../core/components/wizard/wizard';
-import GetSenderAddress from '../../core/components/get-sender-address/get-sender-address';
-import GetReceiverAddress from '../../core/components/get-receiver-address/get-receiver-address';
-import GetWeight from '../../core/components/get-weight/get-weight';
-import GetServiceOption from '../../core/components/get-service-option/get-service-option';
-import Confirm from '../../core/components/confirm/confirm';
+import GetSenderAddress, { validateGetSenderAddress} from '../../core/components/get-sender-address/get-sender-address';
+import GetReceiverAddress, { validateGetReceiverAddress } from '../../core/components/get-receiver-address/get-receiver-address';
+import GetWeight, { validateGetWeight } from '../../core/components/get-weight/get-weight';
+import GetServiceOption, { validateGetServiceOption } from '../../core/components/get-service-option/get-service-option';
+import Confirm, { validateConfirm } from '../../core/components/confirm/confirm';
 import ShippingLabel from '../../core/components/shipping-label/shipping-label'
 
 // Create the WizarContext so we can pass data where needed in the wizard
@@ -43,7 +43,13 @@ export const ShippingLabelMaker = () => {
         </header>
       ) 
     },
-    steps: [ GetSenderAddress, GetReceiverAddress, GetWeight, GetServiceOption, Confirm ],
+    steps: [
+      { component: GetSenderAddress, validation: validateGetSenderAddress },
+      { component: GetReceiverAddress, validation: validateGetReceiverAddress },
+      { component: GetWeight, validation: validateGetWeight },
+      { component: GetServiceOption, validation: validateGetServiceOption },
+      { component: Confirm, validation: validateConfirm },
+    ],
     onComplete: () => {
       updatePrintLabel(!printLabel);
     }

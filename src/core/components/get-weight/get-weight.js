@@ -21,4 +21,14 @@ const GetWeight = (props) => {
   );
 }
 
+export const validateGetWeight = (shippingInfo) => { 
+  let errors = [];
+  
+  if(shippingInfo.weight <= 0) {
+    errors.push('Weight must be greater than 0');
+  }
+
+  return errors;
+} 
+
 export default GetWeight;

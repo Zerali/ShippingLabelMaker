@@ -79,4 +79,30 @@ const GetSenderAddress = (props) => {
   );
 }
 
+export const validateGetSenderAddress = (shippingInfo) => { 
+  let errors = [];
+
+  if(shippingInfo.from.name === '') {
+    errors.push('Name is required');
+  }
+
+  if(shippingInfo.from.street === '') {
+    errors.push('Street is required');
+  }
+
+  if(shippingInfo.from.city === '') {
+    errors.push('City is required');
+  }
+
+  if(shippingInfo.from.state === '') {
+    errors.push('State is required');
+  }
+
+  if(shippingInfo.from.zip === '') {
+    errors.push('Zip is required');
+  }
+
+  return errors;
+};
+
 export default GetSenderAddress;
