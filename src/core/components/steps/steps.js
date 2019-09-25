@@ -8,6 +8,9 @@ const Steps = (props) => {
   const [renderErrors, setRenderErrors] = useState(<div></div>);
 
   const nextOnClick = () => {
+    console.log(value);
+    console.log(renderErrors.length);
+
     const validationErrors = props.validate(value.shippingInfo);
 
     if(validationErrors.length === 0) {
